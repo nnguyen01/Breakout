@@ -1,8 +1,8 @@
-<!DDOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
 	<meta charset=" utf-8" />
-	<title>BreakBall</title>
+	<title>BreakOut</title>
 	<style>
 	    * { padding: 0; margin: 0; }
 	    canvas { background: #eee; display: block; margin: 0 auto; }
@@ -110,6 +110,9 @@
 	     ctx.fillStyle = "#0095DD";
 	     ctx.fillText("Lives: " + lives, canvas.width-65, 20);
 	 }
+
+	 function drawPowerUp() {
+	     ctx.
 
 	 function collisionDetection() {
 	     for (i = 0; i < brickRow; i++) {
