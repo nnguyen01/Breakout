@@ -30,6 +30,25 @@
 	 var rightPressed = false;
 	 var leftPressed = false;
 
+	 // Brick Properties
+	 var brickRow = 3;
+	 var brickColumn = 5;
+	 
+	 var brickWidth = 75;
+	 var brickHeight = 20;
+	 var brickPadding = 10;
+	 var brickOffsetTop = 30;
+	 var brickOffsetLeft = 30;
+
+	 var bricks = []
+	 for (i = 0; i < brickRow; i++) {
+	     bricks[i] = [];
+	     for (j = 0; j < brickColumn; j++) {
+		 bricks[i][j] = { x: 0, y: 0};
+	     }
+	 }
+	 
+
 	 document.addEventListener("keydown", keyDownHandler, false);
 	 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -47,6 +66,25 @@
 	     ctx.fillStyle = "#0095DD";
 	     ctx.fill();
 	     ctx.closePath();
+	 }
+
+	 function drawBricks() {
+	     for (i = 0; i < brickRow; i++) {
+		 for (j = 0; j < brickColumn; j++) {
+		     // BrickX multiples with j instead of i because
+		     // it makes each *block* per column per row instead of the
+		     // whole row first
+		     var BrickX = (j * (brickWidth + brickPadding)) + brickOffsetLeft;
+		     var BrickY = (i * (brickHeight + brickPadding)) + brickOffsetTop;
+		     bricks[i][j].x = 0;
+		     bricks[i][j].y = 0;
+		     ctx.beginPath();
+		     ctx.rect(BrickX, BrickY, brickWidth, brickHeight);
+		     ctx.fillStyle = "#0095DD";
+		     ctx.fill();
+		     ctx.closePath();
+		 }
+	     }
 	 }
 
 	 function keyDownHandler(e) {
@@ -71,6 +109,7 @@
 	     ctx.clearRect(0, 0, canvas.width, canvas.height);
 	     drawBall();
 	     drawPaddle();
+	     drawBricks();
 	     ctx.closePath();
 	     
 	     if(y + dy < ballRadius) {
