@@ -9,7 +9,7 @@
 	</style>
     </head>
     <body>
-	<canvas id="myCanvas" width="480" height="320" ></canvas>
+	<canvas id="myCanvas" width="500" height="500" ></canvas>
 
 	<script>
 	 // Game Properties
@@ -24,8 +24,8 @@
 	 // Ball properties
 	 var x = canvas.width/2;
 	 var y = canvas.height - 30;
-	 var dx = 2
-	 var dy = -2
+	 var dx = 3
+	 var dy = -3
 	 var ballRadius = 8;
 
 	 // Paddle properties
@@ -38,13 +38,13 @@
 
 	 // Brick Properties
 	 var brickRow = 3;
-	 var brickColumn = 5;
+	 var brickColumn = 6;
 	 
-	 var brickWidth = 75;
+	 var brickWidth = 70;
 	 var brickHeight = 20;
 	 var brickPadding = 10;
 	 var brickOffsetTop = 30;
-	 var brickOffsetLeft = 30;
+	 var brickOffsetLeft = 15;
 
 	 var bricks = []
 	 for (i = 0; i < brickRow; i++) {
@@ -110,9 +110,6 @@
 	     ctx.fillStyle = "#0095DD";
 	     ctx.fillText("Lives: " + lives, canvas.width-65, 20);
 	 }
-
-	 function drawPowerUp() {
-	     ctx.
 
 	 function collisionDetection() {
 	     for (i = 0; i < brickRow; i++) {
