@@ -2,7 +2,7 @@
 <html>
     <head>
 	<meta charset=" utf-8" />
-	<title>Gamedev Canvas Workshop</title>
+	<title>BreakBall</title>
 	<style>
 	    * { padding: 0; margin: 0; }
 	    canvas { background: #eee; display: block; margin: 0 auto; }
@@ -26,7 +26,7 @@
 	 var y = canvas.height - 30;
 	 var dx = 2
 	 var dy = -2
-	 var ballRadius = 10;
+	 var ballRadius = 8;
 
 	 // Paddle properties
 	 var paddleHeight = 10;
@@ -50,7 +50,7 @@
 	 for (i = 0; i < brickRow; i++) {
 	     bricks[i] = [];
 	     for (j = 0; j < brickColumn; j++) {
-		 bricks[i][j] = {x:0, y:0, status:1};
+		 bricks[i][j] = {x:0, y:0, status:1, type: i};
 	     }
 	 }
 	 
@@ -62,7 +62,7 @@
 	 function drawBall() {
 	     ctx.beginPath();
 	     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-	     ctx.fillStyle = "#0095DD";
+	     ctx.fillStyle = "#000000";
 	     ctx.fill();
 	     ctx.closePath();
 	 }
@@ -70,7 +70,7 @@
 	 function drawPaddle() {
 	     ctx.beginPath();
 	     ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight)
-	     ctx.fillStyle = "#0095DD";
+	     ctx.fillStyle = "#000000";
 	     ctx.fill();
 	     ctx.closePath();
 	 }
@@ -88,7 +88,9 @@
 			 bricks[i][j].y = BrickY;
 			 ctx.beginPath();
 			 ctx.rect(BrickX, BrickY, brickWidth, brickHeight);
-			 ctx.fillStyle = "#0095DD";
+			 if (bricks[i][j].type == 2) {ctx.fillStyle = "#0095DD";}
+			 else if (bricks[i][j].type == 1) {ctx.fillStyle = "#FF0000";}
+			 else if (bricks[i][j].type == 0) {ctx.fillStyle = "#9932CC";}
 			 ctx.fill();
 			 ctx.closePath();
 		     }
@@ -113,14 +115,16 @@
 	     for (i = 0; i < brickRow; i++) {
 		 for (j = 0; j < brickColumn; j++) {
 		     var b = bricks[i][j]
-		     // status is the state of the brick
-		     // either broken(0) or not broken(1)
 		     if (b.status == 1) {
 			 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
 			     dy = -dy
-			     b.status = 0;
+			     if (b.type < 2) {
+				 b.type++;
+			     } else if (b.type == 2) {
+				 b.status = 0;
+			     }
 			     score++;
-			     if (score == brickRow * brickColumn) {
+			     if (score == brickRow * brickColumn * 2) {
 				 alert("You win, congratulations!");
 				 document.location.reload();
 			     }
@@ -145,7 +149,6 @@
 
 	 function keyDownHandler(e) {
 	     if (e.keyCode == 32 && paused) {
-		 console.log("2");
 		 timer = setInterval(draw, 10);
 		 paused = false;
 	     }
@@ -226,7 +229,6 @@
 	     
 	     x += dx;
 	     y += dy;
-	     console.log(paused);
 	 }
 	 timer = setInterval(draw, 10);
 	</script>
